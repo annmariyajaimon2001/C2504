@@ -1,4 +1,4 @@
-to find average of two numbers
+19. to find average of two numbers
 pseudo: routine
    Function FindAverage(num1,num2)
         avg=(num1+num2)/2
@@ -11,7 +11,7 @@ pseudo: routine test
        print avg
 
 
-to find cube of number
+20. to find cube of number
 pseudo: routine
     Function FindCube(num)
         cube= num*num*num
@@ -24,7 +24,7 @@ pseudo: routin test
         print cube
 
 
-to find square of the number
+15. to find square of the number
 pseudo: routine
     Function FindSquare(num)
         square= num*num
@@ -39,7 +39,7 @@ pseudo: routine test
 
 
 
-swap two numbers
+9. swap two numbers
 pseudo: routine
     Function Swap(a,b)
        temp=a
@@ -56,7 +56,7 @@ pseudo: routine test
 
 
 
-to check nubmer is divisible by 3
+28. to check nubmer is divisible by 3
 pseudo: routine
    Function IsDivisibleBy3(num)
       if num % 3 == 0
@@ -74,7 +74,8 @@ pseudo: routine test
 
 
 
-number divisible by 27
+
+11. number divisible by 27
 pseudo: routine
    Function IsDivisibleBy27(num)
       if num % 27 == 0
@@ -89,5 +90,91 @@ pseudo: routine test
             print "Divisible by 27"
        else 
             print "not divisible by 27"
+
+
+
+
+14. to print N natural numbers
+pseudo: routine
+   Function PrintNaturalNumber(num)
+       for i= 1 to num
+          print i
+
+pseudo: routine test
+   Procedure TestPrintNaturalNumber()
+        input num
+        nat = PrintNaturalNumber(num)
+
+
+
+
+
+1. to check a number palindrome
+pseudo: routine
+   Function IsPalindrome(num)
+        originalNum= num
+        reverseNum=0
+        while originalNum>0
+           digit= originalNum % 10
+           reverseNum= reverseNum * 10 + digit
+           originalNum= originalNum / 10
+        end while
+            return (number = reverseNum
+      
+
+pseudo: routine test
+    Procedure TestIsPlaindrome()
+          input num
+          if IsPalindrome(num)
+               print "number is plaindrome"
+          else
+               print "number is not palindrome"
+                 
+
+
+
+
+2. to check a number amstrong
+pseudo: routine
+   Procedure IsArmstrong(num)
+       temp=num
+       sum=0
+       digitCount= length of num
+       while num > 0
+         digit= num % 10
+         sum= sum + (digit ^ digitCount)
+         num= num / 10
+      if sum == temp
+            return true
+      else
+            return false
+pseudo: routine test
+    Procedure TestIsArmstrong()
+          input num
+          result = IsArmstrong(num)
+          if result=true
+              print "number is armstrong"
+          else
+              print "number is not armstrong"
+           
+
+
+
+3. to check a number prime
+pseudo: routine
+   Function IsPrime(num)
+          for i = 2 to (num/2)
+                if num % i ==0
+                   return false
+                else
+                   return true
+pseudo: routine test
+    Procedure TestIsPrime()
+         input num
+         result= IsPrime(num)
+         if result = true
+             print "prime number"
+         else
+             print "not prime number"
 
 
