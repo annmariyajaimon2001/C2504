@@ -1,0 +1,10 @@
+pseudo: routine
+   Function FindAverage(num1,num2)
+        avg=(num1+num2)/2
+        return avg
+pseudo: routine test
+   Procedure TestFindAverage()
+       Input num1
+       Input num2
+       avg=FindAverage(num1,num2)
+       print avg
