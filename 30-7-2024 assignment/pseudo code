@@ -178,3 +178,44 @@ pseudo: routine test
              print "not prime number"
 
 
+
+7.check for perfect numbers
+
+pseudo : routine
+function isPerfectNumber(num)
+    sum = 0
+    temp = n
+    for i from 1 to n-1 do
+      if temp % i ==0
+         sum = sum + i
+
+    if sum == n
+      return true
+    else 
+      return false
+
+
+pseudo: routine test
+function testIsPerfectNumber()
+    input num
+    if isPerfectNumber(num)
+      print"perfect number"
+    else
+      print"not perfect number"
+
+
+
+17.Odd or even
+
+pseudo : routine
+function IsOddOrEven(num)
+    if num % 2 == 0
+      print "odd"
+    else:
+      print "even"
+
+
+test routine:
+function testIsOddOrEven()
+    input num 
+    IsoddOrEven(num)
