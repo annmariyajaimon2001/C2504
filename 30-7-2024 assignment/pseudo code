@@ -180,19 +180,16 @@ pseudo: routine test
 
 
 7.check for perfect numbers
-
 pseudo : routine
 function isPerfectNumber(num)
     sum = 0
-    temp = n
-    for i from 1 to n-1 do
+    temp = num
+    for i from 1 to num-1 do
       if temp % i ==0
          sum = sum + i
 
-    if sum == n
-      return true
-    else 
-      return false
+      return (sum == n)
+
 
 
 pseudo: routine test
@@ -206,7 +203,6 @@ function testIsPerfectNumber()
 
 
 17.Odd or even
-
 pseudo : routine
 function IsOddOrEven(num)
     if num % 2 == 0
@@ -219,3 +215,38 @@ test routine:
 function testIsOddOrEven()
     input num 
     IsoddOrEven(num)
+
+
+
+18.to check a year leap
+pseudo: routine
+ function IsLeapYear(num)
+      if num % 4 ==0
+         if num % 100==0
+             if num %400==0
+                  return true
+              else 
+                  return false
+pseudo: routine test
+   function TestIsLeapYear()
+       input num
+         if IsLeapYear(num)
+            print "leap year"
+          else
+            print "not leap year"
+
+
+
+21. to check a number perfect square or not
+pseudo: routine
+   function IsPerfectSquare(num)
+      root = sqrt(num)
+      return root* root== num
+pseudo: routine test
+   function TestIsPerfectSquare()
+     input num
+     if IsPerfectSquare(num)
+          print "perfect square"
+     else
+          print "not perfect square"
+
