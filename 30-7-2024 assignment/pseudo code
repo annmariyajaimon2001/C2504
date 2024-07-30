@@ -250,3 +250,58 @@ pseudo: routine test
      else
           print "not perfect square"
 
+
+
+5. Reverse the number
+pseudo: routine
+function FindReverse(num)
+    set rev = 0
+    temp = num
+    while temp > 0 
+       rem = temp % 10
+       rev = rev * 10 + rem
+       temp =temp/10
+    end while
+    
+    return rev
+
+pseudo: test routine
+function TestFindReverse()
+    input num
+    reverse = FindReverse(num)
+    print(reverse)
+
+
+
+6. Factorials of the number
+pseudo: routine
+function FindFactorial(num)
+    set fact = 1
+    for i from 1 to n do
+      fact = fact * i
+    return fact
+
+pseudo: routine test
+function TestFindFactorial()
+    input num
+    fact = FindFactorial(num)
+    print(fact)
+
+
+
+4. Fibonacci
+pseudo: routine
+function PrintFibonacci(limit)
+   term1=0
+   term2=1
+   print term1
+   for i = 2 to limit
+      print term2
+      term3= term1+term2
+      term1=term2
+      term2=term3
+
+pseudo : routine test
+function testPrintFibonacci(){
+  input limit
+  printFibonacci(limit)
