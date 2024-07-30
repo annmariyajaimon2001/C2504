@@ -37,4 +37,23 @@ pseudo: routine test
          print square
 
 
+
+
 swap two numbers
+pseudo: routine
+    Function Swap(a,b)
+       temp=a
+       a=b
+       b=temp
+
+pseudo: routine test
+    Procedure TestSwap()
+        input a
+        input b
+        swap= Swap(a,b)
+        print a
+        print b
+
+
+
+to check nubmer is divisible by 3
