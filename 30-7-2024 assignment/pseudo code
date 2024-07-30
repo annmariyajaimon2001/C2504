@@ -25,3 +25,16 @@ pseudo: routin test
 
 
 to find square of the number
+pseudo: routine
+    Function FindSquare(num)
+        square= num*num
+        return square
+
+pseudo: routine test
+    Procedure TestFindSquare()
+         input num
+         square= FindSquare(num)
+         print square
+
+
+swap two numbers
