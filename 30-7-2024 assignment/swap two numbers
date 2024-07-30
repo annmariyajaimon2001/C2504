@@ -1,0 +1,13 @@
+pseudo: routine
+    Function Swap(a,b)
+       temp=a
+       a=b
+       b=temp
+
+pseudo: routine test
+    Procedure TestSwap()
+        input a
+        input b
+        swap= Swap(a,b)
+        print a
+        print b
