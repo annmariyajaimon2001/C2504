@@ -57,3 +57,21 @@ pseudo: routine test
 
 
 to check nubmer is divisible by 3
+pseudo: routine
+   Function IsDivisibleBy3(num)
+      if num % 3 == 0
+          return true
+      else
+          return false
+
+pseudo: routine test
+   Procedure TestIsDivisibleBy3()
+       input num
+       if IsDivisibleBy3(num)
+            print "Divisible by 3"
+       else 
+            print "not divisible by 3"
+
+
+
+number divisible by 27
