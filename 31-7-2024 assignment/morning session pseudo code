@@ -1,0 +1,102 @@
+1.To print the one is adult based his/her age 
+   Note: Dont print if not adult
+    function IsAdult(age) 
+        isAdult = (age >= 18);
+        return isAdult; 
+
+    function TestIsAdult()
+        Input age 
+        if(IsAdult(age)) 
+            print "You are an adult."
+        end if
+
+
+2. Take a num 10, if num greater than 5
+   print "num as 'greater than 5"
+
+function IsGreaterThan5(num)
+   isGreater = (num > 5)
+   return isGreater
+
+function TestIsGreaterThan5()
+  Input num
+  if(IsGreaterThan5(num)
+       print "Greater than 5"
+  end if
+
+
+3.To print 'number is positive' if num > 0
+       it should not print if not positive 
+
+function IsPositive(num)
+   isPositive = (num > 0)
+   return isPositive
+
+function TestIsPositive()
+  Input num
+  if(IsPositive(num)
+       print "Positive number"
+  end if
+
+
+4.if temp > 25, print it is hot outside.
+
+function IsTempHot(temp)
+   isTempHot = (temp > 25)
+   return isTempHot
+
+function TestIsTempHot()
+  Input temp
+  if(IsTempHot(temp)
+       print "It is hot outside"
+  end if
+
+
+5.To print the is adult or not based his/her age. 
+
+function IsAdultNotAdult(age) 
+        isAdult = (age >= 18);
+        return isAdult; 
+
+function TestIsAdultNotAdult()
+        Input age 
+        if(IsAdult(age)) 
+            print 'You are an adult.'
+        else 
+            print 'You are not an adult.'
+        end if
+
+
+6.Input mark, if IsMarkGreaterThan40(mark) 
+    print pass else fail 
+
+function IsMarkGreaterThan40(mark)
+    isMarkGreaterThan40 = (mark > 40)
+    return isMarkGreaterThan40
+
+function TestIsMarkGreaterThan40()
+    Input mark 
+    if IsMarkGreaterThan40(mark)
+        print "pass" 
+    else 
+        print "fail" 
+    end if
+
+
+7.Input number, check it is positive or negative 
+
+function IsPositiveOrNegative(num)
+   isPositiveOrNegative = (num > 0)
+   return isPositiveOrNegative
+
+function TestIsPositiveOrNegative()
+  Input num
+  if(IsPositiveOrNegative(num)
+       print "Positive number"
+  else
+       print"Negative number"
+  end if
+
+
+8.input doctorSalary/month, 
+    check if is 6 digit salary or not 
