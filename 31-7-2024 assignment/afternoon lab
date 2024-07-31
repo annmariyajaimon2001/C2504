@@ -1,0 +1,140 @@
+shopping cart
+
+double discountLimit
+double discountRate
+double totalCost=0
+
+for each item in shoppingCart
+  totalCost = totalCost + item.price * item.quantity
+
+if totalCost > discountLimit
+   discount = totalCost * discountRate
+   totalCost = totalCost - discount
+
+print totalCost
+
+--------------------------------------------------------------
+
+calculator
+
+pseudo: routine
+  function FindCalculation(num1,num2,operator)
+     if operator == +
+        return num1 + num2
+     else if operator == -
+        return num1 - num2
+     else if operator == *
+	return num1 * num2
+     else if operator == /
+        return num1 / num2
+     else
+        return "invalid operator"
+     end if	
+
+
+
+pseudo: routine test
+ function TestFindCalculation()
+   double num1
+   double num2
+   char operator
+   result FinfCalculation(num1,num2,operator)
+   print result
+
+----------------------------------------------------------------
+
+FuzzBuzz
+
+int number
+for number from 1 to 100 do:
+
+    if number % 3 == 0 and number % 5 == 0 then:
+        print "fuzzbuzz"
+
+    else if number % 3 == 0 then:
+        print "fuzz"
+
+    else if number % 5 == 0 then:
+        print "buzz"
+
+    else:
+        print number
+    
+    end if
+
+ end for
+
+------------------------------------------------------------------
+
+palindrome
+
+pseudo: routine
+Function IsPalindrome(inputString)
+    length = Length(inputString)
+    for i = 0 to length / 2 - 1
+        if inputString[i] != inputString[length - i - 1] Then
+            return False
+        end If
+    end for
+    return True
+
+pseudo: routine test 
+Procedure TestIsPalindrome()
+    string inputString
+    result = IsPalindrome(inputString)
+    if result = True Then
+        print "The string is a palindrome."
+    else
+        print "The string is not a palindrome."
+    end If
+
+-----------------------------------------------------------------------
+
+maximum value in array
+
+pseudo: routine
+function IsMaximum(num, arr)
+     int max=arr[0]
+     for i from 1 to size of arr
+          if(arr[i]>arr[i++])
+            
+
+
+pesudo: routine test
+  function TestIsMaximum()
+     int [] arr = {12, 3, 11, 5, 7, 19}
+     int num
+     result = IsMaximum(num, arr)
+     print result
+
+------------------------------------------------------------------------
+
+Bank account
+
+pseudo: rountine
+double balance
+double amount
+
+function ToDeposit(amount)
+  if amount > 0 
+     balance = balance + amount
+     print balance
+  else
+     print "invalid deposit"
+  end if
+
+function ToWithdraw(amount)
+   if amount > 0 $$ amount < balance 
+      balance = balance - amount
+      print balance
+   else if amount> balance
+      print "insufficient fund"
+   else
+      print "invalid withdraw"
+   end if
+
+function ToCheckBalance()
+   print balance
+      
+
+------------------------------------------------------------------------
