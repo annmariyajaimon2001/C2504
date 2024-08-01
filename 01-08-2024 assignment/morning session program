@@ -342,3 +342,155 @@ class TestCountMin6DigitsSalariedDoctors
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 6
+
+pseudo:
+
+function ReadAndCountDoctorsMin6DigitsSalaried(): 
+    count = 0 
+    Input N 
+    for i = 1 .. N 
+        Input salary 
+        isMin6Digits = IsDoctorSalaryMin6Digits(salary)
+        if isMin6Digits then 
+            count += 1
+        end if 
+
+c#:
+
+class ReadAndCountDoctorsMin6DigitsSalaried
+{
+static bool IsDoctorSalaryMin6Digits(int salary)
+    {
+        return salary >= 100000;
+    }
+ static int ReadAndCountDoctorsMin6DigitsSalaried()
+    {
+        int count = 0;
+
+        Console.WriteLine("Enter the number of doctors: ");
+        int N = int.Parse(Console.ReadLine());
+
+        for (int i = 1; i <= N; i++)
+        {
+            Console.WriteLine($"Enter the salary for doctor {i}: ");
+            int salary = int.Parse(Console.ReadLine());
+
+            bool isMin6Digits = IsDoctorSalaryMin6Digits(salary);
+            if (isMin6Digits)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
+ static void Main(string[] args)
+    {
+        int count = ReadAndCountDoctorsMin6DigitsSalaried();
+        Console.WriteLine("Number of doctors with at least 6-digit salaries: " + count);
+    }
+}
+
+----------------------------------------------------------------------------------------------------------------------
+7
+
+pseudo:
+
+function ReadAndFindMinSalaryOfNDoctors():
+    MinSalary = -1
+    Input N  
+    for i = 1 .. N 
+        Input salary
+        if i == 1 then 
+             MinSalary = salary 
+             continue 
+        end if 
+
+        if salary < MinSalary then 
+            MinSalary = salary
+        end if 
+
+c#:
+class ReadAndFindMinSalaryOfNDoctors
+{
+static int ReadAndFindMinSalaryOfNDoctors()
+    {
+        int minSalary = -1;
+
+        Console.WriteLine("Enter the number of doctors: ");
+        int N = int.Parse(Console.ReadLine());
+
+        for (int i = 1; i <= N; i++)
+        {
+            Console.WriteLine($"Enter the salary for doctor {i}: ");
+            int salary = int.Parse(Console.ReadLine());
+
+            if (i == 1)
+            {
+                minSalary = salary;
+                continue;
+            }
+
+            if (salary < minSalary)
+            {
+                minSalary = salary;
+            }
+        }
+
+        return minSalary;
+    }
+ static void Main(string[] args)
+    {
+        int minSalary = ReadAndFindMinSalaryOfNDoctors();
+        Console.WriteLine("Minimum salary among the doctors: " + minSalary);
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------
+8
+
+pseudo:
+
+function ReadAndFindSumOfDoctorsSalariesTillZero()
+    sum = 0 
+    do 
+        input salary 
+        if !(salary > 0 || salary == 0)
+            print "Input valid salary"
+            continue 
+        end if 
+        
+        if salary != 0 
+            sum += salary
+        end if  
+    while salary != 0
+    print sum 
+
+c#:
+
+
+
+
+
+-----------------------------------------------------------------------------------------------
+9.
+pseudo:
+
+function ReadAndFindSumOfDoctorsSalariesTillZero()
+    sum = 0 
+    input salary
+    while salary != 0
+        if (salary < 0) 
+            print "Input valid salary"
+            input salary
+            continue
+        end if        
+        sum += salary
+        input salary
+    end while 
+    print sum 
+
+c#:
+
+
+
