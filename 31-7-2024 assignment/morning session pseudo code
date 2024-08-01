@@ -102,7 +102,7 @@ function TestIsPositiveOrNegative()
     check if is 6 digit salary or not 
 
 function IsSalary6(salary)
-   isSalary6 = (salary >= 100000 && salary <=999999 )
+   isSalary6 = (salary >= 100000)
    return isSalary6
 
 function IsSalary6()
