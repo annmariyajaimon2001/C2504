@@ -1,1 +1,81 @@
  1. IsDoctorSalaryMin6Digits(doctorSalary)
+pseduo: 
+
+function IsDoctorSalaryMin6Digits(doctorSalary) 
+        salary = doctorSalary
+        count = 0
+        while salary > 0            
+            digit = salary % 10     
+            count += 1               
+            salary = salary / 10    
+        end while 
+        return count >= 6
+
+function TestIsDoctorSalaryMin6Digits()
+    Input doctorSalary
+    if IsDoctorSalaryMin6Digits(doctorSalary)
+        print "Doctor gets Minimum 6 digits salary"
+    end if 
+
+function TestIsDoctorSalaryMin6DigitsOrNot()
+    Input doctorSalary
+    if IsDoctorSalaryMin6Digits(doctorSalary)
+        print "Doctor gets Minimum 6 digits salary"
+    else 
+        print "Doctor does not get Minimum 6 digits salary"
+    end if 
+
+c#:
+
+class IsDoctorSalaryMin6Digits
+{ static bool IsDoctorSalaryMin6Digits(int doctorSalary)
+    {
+        int salary = doctorSalary;
+
+        int count = 0;
+        while (salary > 0)
+        {
+            int digit = salary % 10;
+            count += 1;
+            salary = salary / 10;
+        }
+
+        return count >= 6;
+    }
+
+    static void TestIsDoctorSalaryMin6DigitsOrNot()
+    {
+        Console.WriteLine("Enter doctor salary:");
+        int doctorSalary = int.Parse(Console.ReadLine());
+        if(IsDoctorSalaryMin6Digits(doctorSalary))
+        { 
+            Console.WriteLine("Doctor gets Minimum 6 digits salary");
+        }
+        else
+        {
+            Console.WriteLine("Doctor does not get Minimum 6 digits salary");
+        }
+    }
+   
+    static void TestIsDoctorSalaryMin6Digits()
+    {
+        Console.WriteLine("Enter doctor salary:");
+        int doctorSalary = int.Parse(Console.ReadLine());
+        if (IsDoctorSalaryMin6Digits(doctorSalary))
+        {
+            Console.WriteLine("Doctor gets Minimum 6 digits salary");
+        }
+    }
+    static void Main(string[] args) //user: p
+    {
+        Console.WriteLine("--------------------TestIsDoctorSalaryMin6Digits--------------------");
+        TestIsDoctorSalaryMin6Digits();
+        Console.WriteLine("--------------------End of TestIsDoctorSalaryMin6Digits--------------------");
+        Console.WriteLine("--------------------TestIsDoctorSalaryMin6DigitsOrNot--------------------");
+        TestIsDoctorSalaryMin6DigitsOrNot();
+        Console.WriteLine("--------------------End of TestIsDoctorSalaryMin6DigitsOrNot--------------------");
+        Console.WriteLine("Press any key to contine...");
+        Console.ReadKey();
+    }
+}
+
