@@ -363,7 +363,7 @@ static bool IsDoctorSalaryMin6Digits(int salary)
     {
         return salary >= 100000;
     }
- static int ReadAndCountDoctorsMin6DigitsSalaried()
+ static void ReadAndCountDoctorsMin6DigitsSalaried()
     {
         int count = 0;
 
@@ -375,21 +375,21 @@ static bool IsDoctorSalaryMin6Digits(int salary)
             Console.WriteLine($"Enter the salary for doctor {i}: ");
             int salary = int.Parse(Console.ReadLine());
 
-            bool isMin6Digits = IsDoctorSalaryMin6Digits(salary);
-            if (isMin6Digits)
+            if (IsDoctorSalaryMin6Digits(salary))
             {
                 count++;
             }
         }
 
-        return count;
+       Console.WriteLine("Number of doctors with salaries of at least six digits: " + count);
     }
  static void Main(string[] args)
     {
-        int count = ReadAndCountDoctorsMin6DigitsSalaried();
-        Console.WriteLine("Number of doctors with at least 6-digit salaries: " + count);
+        ReadAndCountDoctorsMin6DigitsSalaried();
+         Console.ReadKey();  
     }
 }
+
 
 ----------------------------------------------------------------------------------------------------------------------
 7
@@ -437,14 +437,15 @@ static int ReadAndFindMinSalaryOfNDoctors()
             }
         }
 
-        return minSalary;
+         Console.WriteLine("The minimum salary among the doctors is: " + minSalary);
     }
  static void Main(string[] args)
     {
-        int minSalary = ReadAndFindMinSalaryOfNDoctors();
-        Console.WriteLine("Minimum salary among the doctors: " + minSalary);
+         ReadAndFindMinSalaryOfNDoctors();
+         Console.ReadKey();
     }
 }
+
 
 -----------------------------------------------------------------------------------------------------------------
 8
@@ -467,9 +468,40 @@ function ReadAndFindSumOfDoctorsSalariesTillZero()
     print sum 
 
 c#:
+class Program
+{
 
+    static void ReadAndFindSumOfDoctorsSalariesTillZero()
+    {
+        int sum = 0;
+        int salary;
 
+        do
+        {
+            Console.WriteLine("Enter the doctor's salary (enter 0 to stop): ");
+            string input = Console.ReadLine();
 
+            // Try to parse the input and validate it
+            if (!int.TryParse(input, out salary) || salary < 0)
+            {
+                Console.WriteLine("Input a valid non-negative salary.");
+                continue;
+            }
+
+            if (salary != 0)
+            {
+                sum += salary;
+            }
+        }
+        while (salary != 0);
+
+        Console.WriteLine("Sum of all doctors' salaries: " + sum);
+    }
+ static void Main(string[] args)
+    {
+        ReadAndFindSumOfDoctorsSalariesTillZero();
+    }
+}
 
 
 -----------------------------------------------------------------------------------------------
@@ -491,6 +523,36 @@ function ReadAndFindSumOfDoctorsSalariesTillZero()
     print sum 
 
 c#:
+
+class Program 
+{
+   static void ReadAndFindSumOfDoctorsSalariesTillZero()
+   {
+      int sum = 0;
+      int salary = int.Parse(Console.ReadLine());
+      while(salary != 0)
+      {
+         if(salary<0)
+         {
+           Console.WriteLine("Input valid salary");
+            salary = int.Parse(Console.ReadLine());
+           continue;
+         }
+         else
+         {
+           sum += salary;
+           salary = int.Parse(Console.ReadLine());
+
+         }
+       }
+      Console.WriteLine("Sum of all doctors' salaries: " + sum);
+    }
+ static void Main(string[] args)
+    {
+        ReadAndFindSumOfDoctorsSalariesTillZero();
+    }
+
+}
 
 
 
