@@ -479,10 +479,10 @@ class Program
         do
         {
             Console.WriteLine("Enter the doctor's salary (enter 0 to stop): ");
-            string input = Console.ReadLine();
+            salary = int.Parse(Console.ReadLine());
 
             // Try to parse the input and validate it
-            if (!int.TryParse(input, out salary) || salary < 0)
+            if ( salary < 0)
             {
                 Console.WriteLine("Input a valid non-negative salary.");
                 continue;
