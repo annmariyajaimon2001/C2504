@@ -1,5 +1,33 @@
 1
-class IsDoctorSalaryMin6DigitsSarikaTwoTests
+pseduo: 
+
+function IsDoctorSalaryMin6Digits(doctorSalary) 
+        salary = doctorSalary
+        count = 0
+        while salary > 0            
+            digit = salary % 10     
+            count += 1               
+            salary = salary / 10    
+        end while 
+        return count >= 6
+
+function TestIsDoctorSalaryMin6Digits()
+    Input doctorSalary
+    if IsDoctorSalaryMin6Digits(doctorSalary)
+        print "Doctor gets Min 6 digits salary"
+    end if 
+
+function TestIsDoctorSalaryMin6DigitsOrNot()
+    Input doctorSalary
+    if IsDoctorSalaryMin6Digits(doctorSalary)
+        print "Doctor gets Min 6 digits salary"
+    else 
+        print "Doctor does not get Min 6 digits salary"
+    end if 
+
+c#:
+
+class IsDoctorSalaryMin6Digits
 { static bool IsDoctorSalaryMin6Digits(int doctorSalary)
     {
         int salary = doctorSalary;
@@ -54,6 +82,26 @@ class IsDoctorSalaryMin6DigitsSarikaTwoTests
 
 ---------------------------------------------------------------------------------------------------------------------------------
 2
+pseudo: 
+
+function IsDoctorSalaryMin6Digits(doctorSalary) 
+        salary = doctorSalary
+        count = 0
+        while salary > 0            
+            digit = salary % 10     
+            count += 1               
+            salary = salary / 10    
+        end while 
+        return count >= 6
+
+function TestIsDoctorSalaryMin6Digits()
+    Input doctorSalary
+    if IsDoctorSalaryMin6Digits(doctorSalary)
+        print "Doctor gets Min 6 digits salary"
+    end if 
+
+c#:
+
 class TestIsDoctorSalaryMin6Digits {
     
 static bool IsDoctorSalaryMin6Digits(int doctorSalary) 
@@ -89,6 +137,30 @@ static void TestIsDoctorSalaryMin6Digits()
 
 -----------------------------------------------------------------------------------------------------------------------------
 3
+
+pseudo:
+
+function IsDoctorSalaryMin6Digits(doctorSalary) 
+        salary = doctorSalary
+        count = 0
+        while salary > 0            
+            digit = salary % 10     
+            count += 1               
+            salary = salary / 10    
+        end while 
+        return count >= 6
+
+function TestIsDoctorSalaryMin6DigitsOrNot()
+    Input doctorSalary
+    if IsDoctorSalaryMin6Digits(doctorSalary)
+        print "Doctor gets Min 6 digits salary"
+    else 
+        print "Doctor does not get Min 6 digits salary"
+    end if 
+
+
+c#:
+
 class TestIsDoctorSalaryMin6DigitsOrNot {
     
 static bool IsDoctorSalaryMin6Digits(int doctorSalary) 
@@ -128,6 +200,25 @@ static void TestIsDoctorSalaryMin6Digits()
 
 --------------------------------------------------------------------------------------------------------------------------
 4
+
+pseudo:
+
+function CountMin6DigitsSalariedDoctors(salaries, size)
+    count = 0
+    for  I = 0 .. size-1
+        if IsDoctorSalaryMin6Digits(salaries[I])
+            count += 1
+        end if
+    end for 
+    return count 
+
+function TestCountMin6DigitsSalariedDoctors() 
+    Input size 
+    Input salaries <- iterate and get 
+    sixDigitsSalariedCount = CountMin6DigitsSalariedDoctors(salaries, size)
+    print sixDigitsSalariedCount
+c#:
+
 class TestCountMin6DigitsSalariedDoctors
 {
  static bool IsDoctorSalaryMin6Digits(int doctorSalary)
@@ -183,6 +274,29 @@ static void Main(string[] args) //user: p
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 5
+
+pseudo:
+
+function IsDoctorSalaryMin6Digits(doctorSalary) 
+    return doctorSalary >= 100000
+
+function CountMin6DigitsSalariedDoctors(salaries, size)
+    count = 0
+    for  I = 0 .. size-1
+        if IsDoctorSalaryMin6Digits(salaries[I])
+            count += 1
+        end if
+    end for 
+    return count 
+
+function TestCountMin6DigitsSalariedDoctors() 
+    Input size 
+    Input salaries <- iterate and get 
+    sixDigitsSalariedCount = CountMin6DigitsSalariedDoctors(salaries, size)
+    print sixDigitsSalariedCount
+
+c#:
+
 class TestCountMin6DigitsSalariedDoctors
 {
     static bool IsDoctorSalaryMin6Digits(int doctorSalary) 
