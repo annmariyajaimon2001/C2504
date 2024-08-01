@@ -14,15 +14,15 @@ function IsDoctorSalaryMin6Digits(doctorSalary)
 function TestIsDoctorSalaryMin6Digits()
     Input doctorSalary
     if IsDoctorSalaryMin6Digits(doctorSalary)
-        print "Doctor gets Min 6 digits salary"
+        print "Doctor gets Minimum 6 digits salary"
     end if 
 
 function TestIsDoctorSalaryMin6DigitsOrNot()
     Input doctorSalary
     if IsDoctorSalaryMin6Digits(doctorSalary)
-        print "Doctor gets Min 6 digits salary"
+        print "Doctor gets Minimum 6 digits salary"
     else 
-        print "Doctor does not get Min 6 digits salary"
+        print "Doctor does not get Minimum 6 digits salary"
     end if 
 
 c#:
@@ -49,11 +49,11 @@ class IsDoctorSalaryMin6Digits
         int doctorSalary = int.Parse(Console.ReadLine());
         if(IsDoctorSalaryMin6Digits(doctorSalary))
         { 
-            Console.WriteLine("Doctor gets Min 6 digits salary");
+            Console.WriteLine("Doctor gets Minimum 6 digits salary");
         }
         else
         {
-            Console.WriteLine("Doctor does not get Min 6 digits salary");
+            Console.WriteLine("Doctor does not get Minimum 6 digits salary");
         }
     }
    
@@ -63,7 +63,7 @@ class IsDoctorSalaryMin6Digits
         int doctorSalary = int.Parse(Console.ReadLine());
         if (IsDoctorSalaryMin6Digits(doctorSalary))
         {
-            Console.WriteLine("Doctor gets Min 6 digits salary");
+            Console.WriteLine("Doctor gets Minimum 6 digits salary");
         }
     }
     static void Main(string[] args) //user: p
@@ -124,7 +124,7 @@ static void TestIsDoctorSalaryMin6Digits()
     int doctorSalary = int.Parse(Console.ReadLine());
     if (IsDoctorSalaryMin6Digits(doctorSalary))
     {
-        Console.WriteLine("Doctor gets Min 6 digits salary");
+        Console.WriteLine("Doctor gets Minimum 6 digits salary");
     }
 }
 
