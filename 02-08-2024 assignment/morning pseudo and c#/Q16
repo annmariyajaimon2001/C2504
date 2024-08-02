@@ -1,0 +1,67 @@
+P6. print the following pattern 
+        5
+      5 4
+    5 4 3
+  5 4 3 2
+5 4 3 2 1 
+Here, N = number of lines = 5
+    Q16: use for loop
+
+function GetPrintNumberFor(int N)
+    {
+        for (int row = 1; row <= N; row++)
+        {
+            int spaces = N - row;
+            int num = 1;
+            for (int col = 1; col <= N; col++)
+            {
+                if (col <= spaces)
+                    print " ";
+                else
+                   print col ;
+            }
+           print newline
+        }
+    }
+
+    function TestGetPrintNumberFor()
+    {
+        print "number of lines:";
+        input N
+        GetPrintNumberFor(N); 
+    }
+
+
+---------cs---------
+
+class Q13
+{
+    static void GetPrintNumberFor(int N)
+    {
+        for (int row = 1; row <= N; row++)
+        {
+            int spaces = N - row;
+            int num = 1;
+            for (int col = 1; col <= N; col++)
+            {
+                if (col <= spaces)
+                    Console.Write(" ");
+                else
+                    Console.Write(col);
+            }
+            Console.WriteLine();
+        }
+    }
+
+    static void TestGetPrintNumberFor()
+    {
+        Console.Write("Enter number of lines: ");
+        int N = int.Parse(Console.ReadLine());
+        GetPrintNumberFor(N); 
+    }
+
+    static void Main(string[] args)
+    {
+        TestGetPrintNumberFor();
+    }
+}
