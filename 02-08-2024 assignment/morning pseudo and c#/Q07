@@ -1,0 +1,62 @@
+P3. print the following pattern 
+        1
+      1 2
+    1 2 3
+  1 2 3 4
+1 2 3 4 5 
+Here, N = number of lines = 5
+    Q7: use for loop
+    Q8: use while loop
+    Q9: use do..while loop
+----plan ps----
+function PrintNumTriangleMirroredRightAngle(N)
+function TestPrintNumTriangleMirroredRightAngle()
+Here, 1. PrintNumTriangleMirroredRightAngle -> void, N -> int = number of lines 
+      2. TestPrintNumTriangleMirroredRightAngle -> void 
+----ps----
+function PrintNumTriangleMirroredRightAngle(N) = 5
+    for I = 1; I <= N; I++          
+        for J = 1; J <= N-I; J++     
+            Print "  "                 
+        end for 
+        for J = 1; J <= I; J++       
+            Print J + " "           
+        end for 
+        Print NewLine 
+    end for 
+function TestPrintNumTriangleMirroredRightAngle()
+    Input N 
+    PrintNumTriangleMirroredRightAngle(N)
+
+-----cs-------
+class Q07
+{
+    
+    static void PrintNumTriangleMirroredRightAngle(int N)
+    { 
+        for(int I = 1; I <= N; I++ )
+        { 
+            for(int J = 1; J <= N-I; J++)
+            {
+                Console.Write("  "); //2 spaces
+            }
+            for(int J = 1; J <= I; J++)
+            {
+                Console.Write($"{J} ");//num and space
+            }
+            Console.WriteLine();//new line 
+        }
+    }
+
+    static void TestPrintNumTriangleMirroredRightAngle()
+    {
+        Console.Write("Enter number of lines:");
+        int N = int.Parse(Console.ReadLine());
+        PrintNumTriangleMirroredRightAngle(N);
+    }
+    static void Main(string[] args) //user: p
+    {
+        TestPrintNumTriangleMirroredRightAngle();
+        Console.ReadKey();
+    }
+}
