@@ -3,16 +3,15 @@ P4. print series 0, 1, 1, 2, 3, 5, 8, 13, ... N terms
 
 function  PrintFibonacciFor(int N)
     {
-        int a = 0, b = 1, c;
+        int term1 = 0, term2 = 1;
 
-        print("Fibonacci series: ");
         int i =0;
         while ( i < N )
         {
-           print(a + " ");
-            c = a + b;
-            a = b;
-            b = c;
+           print(term1 + " ");
+            term3 = term1 + term2;
+            term1 = term2;
+            term2 = term3;
             i++
         }
        print newline
@@ -30,16 +29,16 @@ class Q10
 {
     static void PrintFibonacciFor(int N)
     {
-        int a = 0, b = 1, c;
+        int term1 = 0, term2 = 1;
 
         Console.Write("Fibonacci series: ");
         int i = 0;
         while (i < N)
         {
-            Console.Write(a + " ");
-            c = a + b;
-            a = b;
-            b = c;
+            Console.Write(term1 + " ");
+            int term3 = term1 + term2;
+            term1 = term2;
+            term2 = term3;
             i++;
         }
         Console.WriteLine();
