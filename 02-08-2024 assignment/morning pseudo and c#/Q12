@@ -1,0 +1,60 @@
+P4. print series 0, 1, 1, 2, 3, 5, 8, 13, ... N terms 
+    Q12: use do..while loop
+
+    function  PrintFibonacciFor(int N)
+    {
+        int a = 0, b = 1, c;
+        term1 = 0
+        term2 = 1
+
+        int i =0;
+        do
+        {
+           print(term1 + " ");
+            term3 = term1 + term2;
+            term1 = term2;
+            term2 = term3;
+            i++
+        }while ( i < N )
+       print newline
+    }
+
+ function TestPrintFibonacciFor()
+    
+       print("Enter the number of terms: ");
+       input N
+       PrintFibonacciFor(N);
+    
+-------cs-------
+
+class Q10
+{
+    static void PrintFibonacciFor(int N)
+    {
+        int term1 = 0, term2 = 1;
+
+        Console.Write("Fibonacci series: ");
+        int i = 0;
+        do
+        {
+            Console.Write(a + " ");
+            int term3 = term1 + term2;
+            term1 = term2;
+            term2 = term3;
+            i++;
+        } while (i < N);
+        Console.WriteLine();
+    }
+
+    static void TestPrintFibonacciFor()
+    {
+        Console.Write("Enter the number of terms: ");
+        int N = int.Parse(Console.ReadLine());
+        PrintFibonacciFor(N);
+    }
+
+    static void Main(string[] args)
+    {
+         TestPrintFibonacciFor();
+    }
+}
