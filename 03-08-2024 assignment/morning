@@ -1,0 +1,65 @@
+1. 
+Practice on SQL Server:
+    trainer_search_app
+    1. resource: trainer_search_db / trainer CRUD operations 
+    trainer : {id, name, skill, place} 
+actor/user of app: vendor/client 
+
+CREATE DATABASE trainer_search_db;
+
+USE trainer_search_db;
+
+CREATE TABLE trainer (
+	id integer primary key identity(1,1),
+	name varchar(255) not null,
+	skill varchar(512) not null,
+	place varchar(126) not null
+);
+
+sp_help trainer;
+
+SELECT * FROM trainer;
+
+INSERT INTO trainer(name, skill, place) VALUES('ann', 'c#', 'kottayam');
+INSERT INTO trainer(name, skill, place) VALUES('mahesh', 'c#', 'mysore');
+INSERT INTO trainer(name, skill, place) VALUES('sanjay', 'management', 'trivandrum'),
+                                                ('mishel', 'wpf', 'idukki');
+
+DELETE FROM trainer WHERE id = 2;
+
+DELETE FROM trainer WHERE id in(4,5);
+
+SELECT name, skill FROM trainer where id IN (3,4);
+
+UPDATE trainer
+  SET skill = 'wpf and c#'
+  WHERE id IN(3,4);
+
+SELECT name, skill FROM trainer WHERE name IN('mahesh','sanjay');
+
+UPDATE trainer
+SET skill='WPF and C#'
+WHERE name IN('mahesh','sanjay');
+
+SELECT * FROM trainer WHERE id = 3;
+
+UPDATE trainer
+SET name = 'Mahesh', place = 'Mysore'
+WHERE id = 3;
+
+
+SELECT * FROM trainer WHERE id = 5;
+
+UPDATE trainer
+SET name = 'Mishel', place = 'Idukki', skill = 'C# and WPF'
+WHERE id = 5;
+
+
+-----------------------------------------------------------------------------------------------------------
+
+2. Do vendor_search_app :: vendor resource/table CRUD operations 
+   db: vendor_search_db
+    table: vendor {id, name, ratings, place, type} - 10 vendors 
+        !!! type: 1-corporate | 2-college | 3-institute 
+    table: admin {id, username, password} // preloaded create 3 admin users 
+    actor/user of app: trainers  
