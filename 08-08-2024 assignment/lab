@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        code{
+            background-color: #e7e7e7;
+            padding: 3px;
+            border-radius: 5px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <p>Lorem ipsum dolor<wbr> sit amet consectetur adipisicing elit. Eum quo dolor fuga ullam pariatur aliquam molestias saepe nulla cum ipsum minima perferendis ab incidunt doloribus, placeat atque excepturi magni neque!</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id deleniti eius illo est ducimus velit voluptates eaque error autem animi, tempora, alias facilis, ipsa molestiae quas voluptatum dignissimos aut! Voluptas!</p>
+    <h1>main</h1>
+    <p>Lorem ipsum dolor sit <br> amet, consectetur adipisicing elit. Laborum odit obcaecati nihil alias odio maiores at debitis quis? Sed, maiores. Eum nobis reiciendis repudiandae asperiores dignissimos necessitatibus voluptates ullam et.</p>
+    <h2>second</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id deleniti eius illo est ducimus velit voluptates eaque error autem animi, tempora, alias facilis, ipsa molestiae quas voluptatum dignissimos aut! Voluptas!</p>
+    <h3>third</h3>
+    <h4>four</h4>
+    <h5>five</h5>
+    <h6>six</h6>
+    <h1>hi</h1>
+    <span>hello</span>
+    <span>how</span>
+    <hr>
+
+    <p>Use <code>Console.WriteLine()</code> to display text to console.</p>
+    <pre>
+        hi
+        hello
+iihugft
+    hgyuuuftdrd        
+    </pre>
+</body>
+</html>
