@@ -1,0 +1,77 @@
+ class Student
+{
+    public int mark1;
+    public int mark2;
+    public void TotalMark()
+    {
+        Console.WriteLine(mark1 + mark2);
+    }
+}
+
+internal class Program
+{
+    static void Main(string[] args)
+    {
+        Student s1 = new Student
+        {
+            mark1 = 50,
+            mark2 = 60
+        };
+        s1.TotalMark();
+        Console.ReadKey();
+    }
+}
+
+---------------------------------------------------------------------------------
+
+class Calculator
+    {
+        public int num1;
+        public int num2;
+        public void Add()
+        {
+            Console.WriteLine($"Addition {num1 + num2}");
+        }
+        public void Sub()
+        {
+            Console.WriteLine($"Subtraction {num1 - num2}");
+        }
+        public void Mul()
+        {
+            Console.WriteLine($"Multiplication {num1 * num2}");
+        }
+        public void Div()
+        {
+            if (num2 > 0)
+            {
+                Console.WriteLine($"Division  {num1 / num2}");
+            }
+            else
+            {
+                Console.WriteLine("error");
+            }
+        }
+    }
+
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Calculator cal = new Calculator
+            {
+                num1 = 10,
+                num2 = 5
+            };
+            Console.WriteLine("enter 1 for add, 2 for sub, 3 for mul, 4 for div: ");
+            int op = int.Parse(Console.ReadLine());
+            switch (op)
+            {
+                case 1: cal.Add(); break;   
+                case 2: cal.Sub(); break;
+                case 3: cal.Mul(); break;
+                case 4: cal.Div(); break;
+                default : Console.WriteLine("error");break;
+            }
+            Console.ReadKey();
+        }
+    }
