@@ -1,0 +1,23 @@
+class Program
+    {
+        static int Add(params int[] numbers)
+        {
+            int sum = 0;
+            foreach (int number in numbers)
+            {
+                sum += number;
+            }
+            return sum;
+        }
+        static void Main()
+        {
+            int sum1 = Add(1, 2);
+            int sum2 = Add(1, 2, 5);
+            int sum3 = Add(1, 2, 5, 9);
+
+            Console.WriteLine("Sum 1: " + sum1); 
+            Console.WriteLine("Sum 2: " + sum2);
+            Console.WriteLine("Sum 3: " + sum3);
+        }
+
+    }
