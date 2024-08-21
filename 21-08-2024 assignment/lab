@@ -9,11 +9,17 @@ class Program
             }
             return sum;
         }
+        static void AddNum(int x, int y, params int[] number)
+        {
+            var sum = number.Sum();
+            Console.WriteLine(sum);
+        }
         static void Main()
         {
             int sum1 = Add(1, 2);
             int sum2 = Add(1, 2, 5);
             int sum3 = Add(1, 2, 5, 9);
+            AddNum(1, 2);
 
             Console.WriteLine("Sum 1: " + sum1); 
             Console.WriteLine("Sum 2: " + sum2);
