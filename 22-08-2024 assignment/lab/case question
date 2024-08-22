@@ -1,0 +1,35 @@
+class Programs
+    {
+        enum CaseStatus
+        {
+            Upper,
+            Lower
+        }
+        static CaseStatus ConvertCase(string input, out string result)
+        {
+            if (char.IsUpper(input[0]))
+            {
+                result = input.ToLower();
+                return CaseStatus.Upper;
+            }
+            else
+            {
+                result = input.ToUpper(); 
+                return CaseStatus.Lower;
+            }
+        }
+        static void Main(string[] args)
+        {
+            switch(ConvertCase("hello world", out string result))
+            {
+                case CaseStatus.Upper:
+                    Console.WriteLine($"result after converting to uppercase : {result}");
+                    break;
+                case CaseStatus.Lower:
+                    Console.WriteLine($"result after converting to lowercase : {result}");
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
