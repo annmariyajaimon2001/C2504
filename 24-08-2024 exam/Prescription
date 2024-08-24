@@ -1,3 +1,25 @@
+ Define a class: Prescription with the following properties:
+- PrescriptionID (integer)
+- PatientName (string)
+- MedicationName (string)
+- Dosage (double, in milligrams)
+- Tasks:
+1. Data Input:
+- Read N prescriptions from the keyboard.
+2. Find Maximum Dosage:
+- Display the prescription with the highest dosage among the N prescriptions.
+Solve in time complexity of O(N).
+Dont use built-in C# sorting or LINQ.
+3. Find Third Least Dosage:
+- Display the prescription with the third least dosage among the N prescriptions.
+Solve in time complexity of O(N).
+Dont use built-in C# sorting or LINQ.
+4. Sort Prescriptions by Medication Name:
+- Implement and call your own sorting algorithm.
+Dont use built-in C# sorting or LINQ.
+
+
+
 public class Prescription
 {
     public int PrescriptionID { get; set; }
