@@ -59,6 +59,9 @@ internal class Programs
             }
         }
 
+        Console.WriteLine("Prescription with Maximum Dosage : ");
+        Console.WriteLine(maxDosage);
+
         double firstMinDos = double.MaxValue;
         double secondMinDos = double.MaxValue;
         double thirdMinDos = double.MaxValue;
@@ -122,8 +125,5 @@ internal class Programs
         {
             Console.WriteLine(prescription);
         }
-
-        Console.WriteLine("Prescription with Maximum Dosage : ");
-        Console.WriteLine(maxDosage);
     }
 }
