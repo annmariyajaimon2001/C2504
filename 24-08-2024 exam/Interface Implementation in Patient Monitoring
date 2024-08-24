@@ -1,4 +1,25 @@
- public interface IVitalMonitor
+Define an interface: IVitalMonitor with the following methods:
+- CheckVitals() (void)
+- GenerateAlert() (void)
+- Define a class: Patient with properties:
+- PatientID (integer), Name (string)
+- Define a derived class: ICUPatient that inherits from Patient and implements the IVitalMonitor interface:
+- Properties: HeartRate (integer), BloodPressure (string)
+- Implement CheckVitals() to check if vitals are within a safe range.
+- Implement GenerateAlert() to trigger an alert if vitals are abnormal.
+- Define another derived class: OutPatient that also inherits from Patient and implements the IVitalMonitor interface:
+- Properties: Temperature (double), RespirationRate (integer)
+- Implement CheckVitals() and GenerateAlert() with different conditions.
+- Tasks:
+1. Monitor Vitals:
+- Read N patients of both types (ICU and OutPatients).
+2. Generate Alerts:
+- Call CheckVitals() and GenerateAlert() for each patient and display any alerts generated.
+
+
+
+
+public interface IVitalMonitor
  {
      void CheckVitals();
      void GenerateAlert();
