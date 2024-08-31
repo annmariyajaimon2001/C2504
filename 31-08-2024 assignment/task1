@@ -1,0 +1,311 @@
+1. AssemblyInfo.cs
+```
+[assembly: log4net.Config.XmlConfigurator]
+```
+
+
+2. App.config 
+```
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<configSections>
+		<section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+	</configSections>
+
+	<log4net>
+		<!-- File Appender -->
+		<appender name="FileAppender" type="log4net.Appender.RollingFileAppender">
+			<file value="week4assessment_app_log.log" />
+			<appendToFile value="true" />
+			<rollingStyle value="Size" />
+			<maxSizeRollBackups value="5" />
+			<maximumFileSize value="10MB" />
+			<staticLogFileName value="true" />
+			<layout type="log4net.Layout.PatternLayout">
+				<conversionPattern value="%date [%thread] %-5level %logger - %message%newline" />
+			</layout>
+		</appender>
+
+		<!-- Console Appender -->
+		<appender name="ConsoleAppender" type="log4net.Appender.ConsoleAppender">
+			<layout type="log4net.Layout.PatternLayout">
+				<conversionPattern value="%date [%thread] %-5level %logger - %message%newline" />
+			</layout>
+		</appender>
+
+		<!-- Root logger -->
+		<root>
+			<level value="ALL" />
+			<appender-ref ref="FileAppender" />
+			<appender-ref ref="ConsoleAppender" />
+		</root>
+	</log4net>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.7.2" />
+    </startup>
+</configuration>
+```
+
+
+
+3. Program.cs 
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using log4net;
+
+namespace week4
+{
+    public class ServerException : Exception
+    {
+        public ServerException(string message) : base(message) { }
+    }
+
+    public class Prescription
+    {
+        public int PrescriptionID { get; set; }
+        public string PatientName { get; set; }
+        public string MedicationName { get; set; }
+        public double Dosage { get; set; }
+
+        public override string ToString()
+        {
+            return $"\nPrescription ID: {PrescriptionID}, Patient Name: {PatientName}, Medication Name: {MedicationName}, Dosage: {Dosage} mg";
+        }
+    }
+
+    public class PrescriptionService
+    {
+        private static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Week4AssessmentDb;Integrated Security=True;";
+
+        public static void Read(Prescription[] prescriptions)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    string query = "SELECT PrescriptionID, PatientName, MedicationName, Dosage FROM Prescription";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    for (int i = 0; i < prescriptions.Length; i++)
+                    {
+                        if (!reader.Read())
+                        {
+                            throw new ServerException("[0101] Server Error.");
+                        }
+                        prescriptions[i] = new Prescription
+                        {
+                            PrescriptionID = (int)reader["PrescriptionID"],
+                            PatientName = reader["PatientName"].ToString(),
+                            MedicationName = reader["MedicationName"].ToString(),
+                            Dosage = (double)reader["Dosage"]
+                        };
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new ServerException($"[0102] Server Error. {ex.Message}");
+            }
+            catch (ServerException ex)
+            {
+                throw ex;
+            }
+            catch (Exception ex)
+            {
+                throw new ServerException($"[0103] Server Error. {ex.Message}");
+            }
+        }
+
+        public static void SortByMedicationName(Prescription[] prescriptions)
+        {
+            for (int i = 0; i < prescriptions.Length - 1; i++)
+            {
+                for (int j = i + 1; j < prescriptions.Length; j++)
+                {
+                    if (prescriptions[j].MedicationName.CompareTo(prescriptions[i].MedicationName) < 0)
+                    {
+                        var temp = prescriptions[i];
+                        prescriptions[i] = prescriptions[j];
+                        prescriptions[j] = temp;
+                    }
+                }
+            }
+        }
+
+        public static Prescription FindMaxDosage(Prescription[] prescriptions)
+        {
+            double maxDosage = double.MinValue;
+            Prescription maxPrescription = null;
+
+            foreach (var prescription in prescriptions)
+            {
+                if (prescription.Dosage > maxDosage)
+                {
+                    maxDosage = prescription.Dosage;
+                    maxPrescription = prescription;
+                }
+            }
+            return maxPrescription;
+        }
+
+        public static Prescription FindThirdMinDosage(Prescription[] prescriptions)
+        {
+            double firstMinDos = double.MaxValue;
+            double secondMinDos = double.MaxValue;
+            double thirdMinDos = double.MaxValue;
+            Prescription thirdLeastPrescription = null;
+            foreach (var prescription in prescriptions)
+            {
+                double dosage = prescription.Dosage;
+                if (dosage < firstMinDos)
+                {
+                    thirdMinDos = secondMinDos;
+                    secondMinDos = firstMinDos;
+                    firstMinDos = dosage;
+                }
+                else if (dosage < secondMinDos && dosage != firstMinDos)
+                {
+                    thirdMinDos = secondMinDos;
+                    secondMinDos = dosage;
+                }
+                else if (dosage < thirdMinDos && dosage != secondMinDos && dosage != firstMinDos)
+                {
+                    thirdMinDos = dosage;
+                }
+            }
+
+            foreach (var prescription in prescriptions)
+            {
+                if (prescription.Dosage == thirdMinDos)
+                {
+                    thirdLeastPrescription = prescription;
+                    break;
+                }
+            }
+            return thirdLeastPrescription;
+        }
+    }
+
+    public class Program
+    {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+
+        static void Main(string[] args)
+        {
+            Prescription[] prescriptions = new Prescription[5];
+            try
+            {
+                PrescriptionService.Read(prescriptions);
+            }
+            catch (ServerException ex)
+            {
+                log.Error($"{ex.Message}");
+            }
+
+            Prescription maxPrescription = PrescriptionService.FindMaxDosage(prescriptions);
+            log.Info($"Max Prescription: {maxPrescription}");
+
+            Prescription thirdMinPrescription = PrescriptionService.FindThirdMinDosage(prescriptions);
+            log.Info($"Third Min Prescription: {thirdMinPrescription}");
+
+            PrescriptionService.SortByMedicationName(prescriptions);
+            string sortedPrescriptions = string.Join(" ", prescriptions.Select(p => p.ToString()));
+            log.Info($"Sorted Prescriptions: {sortedPrescriptions}");
+        }
+    }
+}
+
+4.PrescriptionServiceTests.cs
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using week4;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace week4.Tests
+{
+    [TestClass()]
+    public class PrescriptionServiceTests
+    {
+        [TestMethod()]
+        public void SortByMedicationNameTest()
+        {
+            Prescription[] prescriptions = new Prescription[3];
+            prescriptions[0] = new Prescription { PrescriptionID = 1, PatientName = "Alice", MedicationName = "Zyrtec", Dosage = 10 };
+            prescriptions[1] = new Prescription { PrescriptionID = 2, PatientName = "Bob", MedicationName = "Aspirin", Dosage = 50 };
+            prescriptions[2] = new Prescription { PrescriptionID = 3, PatientName = "Charlie", MedicationName = "Ibuprofen", Dosage = 25 };
+
+            Prescription[] expected = new Prescription[3];
+            expected[0] = new Prescription { PrescriptionID = 2, PatientName = "Bob", MedicationName = "Aspirin", Dosage = 50 };
+            expected[1] = new Prescription { PrescriptionID = 3, PatientName = "Charlie", MedicationName = "Ibuprofen", Dosage = 25 };
+            expected[2] = new Prescription { PrescriptionID = 1, PatientName = "Alice", MedicationName = "Zyrtec", Dosage = 10 };
+
+            // Act
+            PrescriptionService.SortByMedicationName(prescriptions);
+            for (int i = 0; i < prescriptions.Length; i++)
+            {
+                Assert.AreEqual(expected[i].ToString(), prescriptions[i].ToString());
+            }
+        }
+
+        [TestMethod()]
+        public void FindMaxDosageTest()
+        {
+            Prescription[] prescriptions = new Prescription[3];
+            prescriptions[0] = new Prescription { PrescriptionID = 1, PatientName = "Alice", MedicationName = "Zyrtec", Dosage = 10 };
+            prescriptions[1] = new Prescription { PrescriptionID = 2, PatientName = "Bob", MedicationName = "Aspirin", Dosage = 50 };
+            prescriptions[2] = new Prescription { PrescriptionID = 3, PatientName = "Charlie", MedicationName = "Ibuprofen", Dosage = 25 };
+
+            Prescription expected = new Prescription { PrescriptionID = 2, PatientName = "Bob", MedicationName = "Aspirin", Dosage = 50 };
+
+            // Act
+            Prescription actual = PrescriptionService.FindMaxDosage(prescriptions);
+
+            // Assert
+            Assert.AreEqual(expected.ToString(), actual.ToString());
+        }
+
+        [TestMethod()]
+        public void FindThirdMinDosageTest()
+        {
+            // Arrange
+            Prescription[] prescriptions = new Prescription[5];
+            prescriptions[0] = new Prescription { PrescriptionID = 1, PatientName = "Alice", MedicationName = "Zyrtec", Dosage = 10 };
+            prescriptions[1] = new Prescription { PrescriptionID = 2, PatientName = "Bob", MedicationName = "Aspirin", Dosage = 50 };
+            prescriptions[2] = new Prescription { PrescriptionID = 3, PatientName = "Charlie", MedicationName = "Ibuprofen", Dosage = 25 };
+            prescriptions[3] = new Prescription { PrescriptionID = 4, PatientName = "Dave", MedicationName = "Tylenol", Dosage = 5 };
+            prescriptions[4] = new Prescription { PrescriptionID = 5, PatientName = "Eve", MedicationName = "Advil", Dosage = 15 };
+
+            Prescription expected = new Prescription { PrescriptionID = 5, PatientName = "Eve", MedicationName = "Advil", Dosage = 15 };
+
+            // Act
+            Prescription actual = PrescriptionService.FindThirdMinDosage(prescriptions);
+
+            // Assert
+            Assert.AreEqual(expected.ToString(), actual.ToString());
+        }
+    }
+}
+
+
+5.Output
+2024-08-31 17:37:47,825 [1] INFO  week4.Program - Max Prescription:
+Prescription ID: 3, Patient Name: Alice Johnson, Medication Name: Paracetamol, Dosage: 650 mg
+2024-08-31 17:37:47,837 [1] INFO  week4.Program - Third Min Prescription:
+Prescription ID: 2, Patient Name: Jane Smith, Medication Name: Ibuprofen, Dosage: 200 mg
+2024-08-31 17:37:47,839 [1] INFO  week4.Program - Sorted Prescriptions:
+Prescription ID: 1, Patient Name: John Doe, Medication Name: Amoxicillin, Dosage: 275 mg
+Prescription ID: 4, Patient Name: Bob Brown, Medication Name: Cetirizine, Dosage: 10 mg
+Prescription ID: 2, Patient Name: Jane Smith, Medication Name: Ibuprofen, Dosage: 200 mg
+Prescription ID: 5, Patient Name: Charlie Davis, Medication Name: Omeprazole, Dosage: 40 mg
+Prescription ID: 3, Patient Name: Alice Johnson, Medication Name: Paracetamol, Dosage: 650 mg
+Press any key to continue . . .
