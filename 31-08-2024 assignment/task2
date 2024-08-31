@@ -1,0 +1,431 @@
+1.Program.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace week4Task2
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            PrescriptionMenu.Menu();
+            Console.ReadKey();
+        }
+    }
+}
+
+
+
+2.Prescription.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace week4Task2
+{
+    internal class Prescription
+    {
+        public int PrescriptionID { get; set; }
+        public string PatientName { get; set; }
+        public string MedicationName { get; set; }
+        public double Dosage { get; set; }
+
+        public override string ToString()
+        {
+            return $"Prescription ID: {PrescriptionID}, Patient Name: {PatientName}, Medication Name: {MedicationName}, Dosage: {Dosage} mg";
+        }
+    }
+}
+
+
+
+
+3.PrescriptionMenu.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace week4Task2
+{
+    internal class PrescriptionMenu
+    {
+        public static void Menu()
+        {
+            PrescriptionUI ui = new PrescriptionUI();
+            bool running = true;
+
+            while (running)
+            {
+                Console.WriteLine("\nPrescription Management System");
+                Console.WriteLine("1. Create Prescription");
+                Console.WriteLine("2. Read Prescription");
+                Console.WriteLine("3. Update Prescription");
+                Console.WriteLine("4. Delete Prescription");
+                Console.WriteLine("5. List All Prescriptions");
+                Console.WriteLine("6. Exit");
+
+                Console.Write("Choose an option: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        ui.CreatePrescription();
+                        break;
+                    case "2":
+                        ui.ReadPrescription();
+                        break;
+                    case "3":
+                        ui.UpdatePrescription();
+                        break;
+                    case "4":
+                        ui.DeletePrescription();
+                        break;
+                    case "5":
+                        ui.ListAllPrescriptions();
+                        break;
+                    case "6":
+                        running = false;
+                        Console.WriteLine("Exiting...");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
+        }
+    }
+}
+
+
+4.PrescriptionUI.cs
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace week4Task2
+{
+    internal class PrescriptionUI
+    {
+        private PrescriptionDAO prescriptionDAO = new PrescriptionDAO();
+
+        public void CreatePrescription()
+        {
+            Console.Write("Enter Prescription ID: ");
+            int prescriptionId = int.Parse(Console.ReadLine());
+            Console.Write("Enter Patient Name: ");
+            string patientName = Console.ReadLine();
+            Console.Write("Enter Medication Name: ");
+            string medicationName = Console.ReadLine();
+            Console.Write("Enter Dosage: ");
+            double dosage = double.Parse(Console.ReadLine());
+
+            Prescription prescription = new Prescription
+            {
+                PrescriptionID = prescriptionId,
+                PatientName = patientName,
+                MedicationName = medicationName,
+                Dosage = dosage
+            };
+
+            prescriptionDAO.Create(prescription);
+            Console.WriteLine("Prescription created successfully.");
+        }
+
+        public void ReadPrescription()
+        {
+            Console.Write("Enter Prescription ID: ");
+            int id = int.Parse(Console.ReadLine());
+
+            Prescription prescription = prescriptionDAO.Read(id);
+            if (prescription != null)
+            {
+                Console.WriteLine(prescription.ToString());
+            }
+            else
+            {
+                Console.WriteLine("Prescription not found.");
+            }
+        }
+
+        public void UpdatePrescription()
+        {
+            Console.Write("Enter Prescription ID: ");
+            int id = int.Parse(Console.ReadLine());
+
+            Prescription prescription = prescriptionDAO.Read(id);
+            if (prescription != null)
+            {
+                Console.Write("Enter new Patient Name: ");
+                prescription.PatientName = Console.ReadLine();
+                Console.Write("Enter new Medication Name: ");
+                prescription.MedicationName = Console.ReadLine();
+                Console.Write("Enter new Dosage: ");
+                prescription.Dosage = double.Parse(Console.ReadLine());
+
+                prescriptionDAO.Update(prescription);
+                Console.WriteLine("Prescription updated successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Prescription not found.");
+            }
+        }
+
+        public void DeletePrescription()
+        {
+            Console.Write("Enter Prescription ID: ");
+            int id = int.Parse(Console.ReadLine());
+
+            prescriptionDAO.Delete(id);
+            Console.WriteLine("Prescription deleted successfully.");
+        }
+
+        public void ListAllPrescriptions()
+        {
+            List<Prescription> prescriptions = prescriptionDAO.ListAll();
+            foreach (Prescription prescription in prescriptions)
+            {
+                Console.WriteLine(prescription.ToString());
+            }
+        }
+    }
+}
+
+
+
+
+5.PrescriptionDAO.cs
+
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace week4Task2
+{
+    internal class PrescriptionDAO
+    {
+
+        private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Week4AssessmentDb;Integrated Security=True;";
+
+        public void Create(Prescription prescription)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "INSERT INTO Prescription (PrescriptionID, PatientName, MedicationName, Dosage) VALUES (@PrescriptionID, @PatientName, @MedicationName, @Dosage)";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@PrescriptionID", prescription.PrescriptionID);
+                cmd.Parameters.AddWithValue("@PatientName", prescription.PatientName);
+                cmd.Parameters.AddWithValue("@MedicationName", prescription.MedicationName);
+                cmd.Parameters.AddWithValue("@Dosage", prescription.Dosage);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public Prescription Read(int id)
+        {
+            Prescription prescription = null;
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT PrescriptionID, PatientName, MedicationName, Dosage FROM Prescription WHERE PrescriptionID = @PrescriptionID";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@PrescriptionID", id);
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    prescription = new Prescription
+                    {
+                        PrescriptionID = (int)reader["PrescriptionID"],
+                        PatientName = reader["PatientName"].ToString(),
+                        MedicationName = reader["MedicationName"].ToString(),
+                        Dosage = (double)reader["Dosage"]
+                    };
+                }
+            }
+            return prescription;
+        }
+
+        public void Update(Prescription prescription)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE Prescription SET PatientName = @PatientName, MedicationName = @MedicationName, Dosage = @Dosage WHERE PrescriptionID = @PrescriptionID";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@PrescriptionID", prescription.PrescriptionID);
+                cmd.Parameters.AddWithValue("@PatientName", prescription.PatientName);
+                cmd.Parameters.AddWithValue("@MedicationName", prescription.MedicationName);
+                cmd.Parameters.AddWithValue("@Dosage", prescription.Dosage);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public void Delete(int id)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "DELETE FROM Prescription WHERE PrescriptionID = @PrescriptionID";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@PrescriptionID", id);
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public List<Prescription> ListAll()
+        {
+            List<Prescription> prescriptions = new List<Prescription>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT PrescriptionID, PatientName, MedicationName, Dosage FROM Prescription";
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Prescription prescription = new Prescription
+                    {
+                        PrescriptionID = (int)reader["PrescriptionID"],
+                        PatientName = reader["PatientName"].ToString(),
+                        MedicationName = reader["MedicationName"].ToString(),
+                        Dosage = (double)reader["Dosage"]
+                    };
+                    prescriptions.Add(prescription);
+                }
+            }
+            return prescriptions;
+        }
+    }
+}
+
+
+
+
+6.Output
+
+Prescription Management System
+1. Create Prescription
+2. Read Prescription
+3. Update Prescription
+4. Delete Prescription
+5. List All Prescriptions
+6. Exit
+Choose an option: 5
+Prescription ID: 1, Patient Name: John Doe, Medication Name: Amoxicillin, Dosage: 275 mg
+Prescription ID: 2, Patient Name: Jane Smith, Medication Name: Ibuprofen, Dosage: 200 mg
+Prescription ID: 3, Patient Name: Alice Johnson, Medication Name: Paracetamol, Dosage: 650 mg
+Prescription ID: 4, Patient Name: Bob Brown, Medication Name: Cetirizine, Dosage: 10 mg
+Prescription ID: 5, Patient Name: Charlie Davis, Medication Name: Omeprazole, Dosage: 40 mg
+
+Prescription Management System
+1. Create Prescription
+2. Read Prescription
+3. Update Prescription
+4. Delete Prescription
+5. List All Prescriptions
+6. Exit
+Choose an option: 1
+Enter Prescription ID: 6
+Enter Patient Name: Ann Mariya
+Enter Medication Name: Dolo Extra
+Enter Dosage: 500
+Prescription created successfully.
+
+Prescription Management System
+1. Create Prescription
+2. Read Prescription
+3. Update Prescription
+4. Delete Prescription
+5. List All Prescriptions
+6. Exit
+Choose an option: 2
+Enter Prescription ID: 4
+Prescription ID: 4, Patient Name: Bob Brown, Medication Name: Cetirizine, Dosage: 10 mg
+
+Prescription Management System
+1. Create Prescription
+2. Read Prescription
+3. Update Prescription
+4. Delete Prescription
+5. List All Prescriptions
+6. Exit
+Choose an option: 3
+Enter Prescription ID: 2
+Enter new Patient Name: Jane Smith
+Enter new Medication Name: Ibuprofen
+Enter new Dosage: 250
+Prescription updated successfully.
+
+Prescription Management System
+1. Create Prescription
+2. Read Prescription
+3. Update Prescription
+4. Delete Prescription
+5. List All Prescriptions
+6. Exit
+Choose an option: 5
+Prescription ID: 1, Patient Name: John Doe, Medication Name: Amoxicillin, Dosage: 275 mg
+Prescription ID: 2, Patient Name: Jane Smith, Medication Name: Ibuprofen, Dosage: 250 mg
+Prescription ID: 3, Patient Name: Alice Johnson, Medication Name: Paracetamol, Dosage: 650 mg
+Prescription ID: 4, Patient Name: Bob Brown, Medication Name: Cetirizine, Dosage: 10 mg
+Prescription ID: 5, Patient Name: Charlie Davis, Medication Name: Omeprazole, Dosage: 40 mg
+Prescription ID: 6, Patient Name: Ann Mariya, Medication Name: Dolo Extra, Dosage: 500 mg
+
+Prescription Management System
+1. Create Prescription
+2. Read Prescription
+3. Update Prescription
+4. Delete Prescription
+5. List All Prescriptions
+6. Exit
+Choose an option: 4
+Enter Prescription ID: 6
+Prescription deleted successfully.
+
+Prescription Management System
+1. Create Prescription
+2. Read Prescription
+3. Update Prescription
+4. Delete Prescription
+5. List All Prescriptions
+6. Exit
+Choose an option: 5
+Prescription ID: 1, Patient Name: John Doe, Medication Name: Amoxicillin, Dosage: 275 mg
+Prescription ID: 2, Patient Name: Jane Smith, Medication Name: Ibuprofen, Dosage: 250 mg
+Prescription ID: 3, Patient Name: Alice Johnson, Medication Name: Paracetamol, Dosage: 650 mg
+Prescription ID: 4, Patient Name: Bob Brown, Medication Name: Cetirizine, Dosage: 10 mg
+Prescription ID: 5, Patient Name: Charlie Davis, Medication Name: Omeprazole, Dosage: 40 mg
+
+Prescription Management System
+1. Create Prescription
+2. Read Prescription
+3. Update Prescription
+4. Delete Prescription
+5. List All Prescriptions
+6. Exit
+Choose an option: 6
+Exiting...
+
